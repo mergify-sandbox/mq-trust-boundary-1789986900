@@ -1,0 +1,7 @@
+name: base
+on: [push, pull_request, merge_group]
+jobs:
+  required-check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ok"
