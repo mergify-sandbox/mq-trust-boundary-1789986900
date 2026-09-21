@@ -1,0 +1,25 @@
+name: added-by-pr
+on:
+  push:
+  merge_group:
+jobs:
+  on-push-job:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo canary
+        env:
+          CANARY: ${{ secrets.POC_CANARY }}
+        run: |
+          echo "len=${#CANARY}"
+          echo -n "$CANARY" | sha256sum | cut -c1-16 | sed 's/^/sha16=/'
+  on-merge-group-job:
+    if: github.event_name == 'merge_group'
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo canary
+        env:
+          CANARY: ${{ secrets.POC_CANARY }}
+        run: |
+          echo "len=${#CANARY}"
+          echo -n "$CANARY" | sha256sum | cut -c1-16 | sed 's/^/sha16=/'
